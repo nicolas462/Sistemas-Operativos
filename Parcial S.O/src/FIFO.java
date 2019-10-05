@@ -17,5 +17,4 @@ public class FIFO
 		// TODO Auto-generated method stub
 
 	}
-
 }
