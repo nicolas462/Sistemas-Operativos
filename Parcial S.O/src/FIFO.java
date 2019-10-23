@@ -1,16 +1,7 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.util.Random;
 
 /**
- * Algoritmo FIFO utilizado como algoritmo de reemplazo de páginas en la 
- * planificación de acceso de datos en discos.
- * 
- * Un fallo de página es la secuencia de eventos que ocurren cuando un 
- * programa intenta acceder a datos (o código) que está en su espacio 
- * de direcciones, pero que no está actualmente ubicado en la RAM del sistema.
- * 
- * La emulación de este algoritmo, para este código, va estar regido
- * por un valor máximo de cinco procesos.
+ * Algoritmo FIFO utilizado como algoritmo de planificación de acceso de datos en discos. 
  */
 
 /**
@@ -21,23 +12,31 @@ public class FIFO
 {	
 	public static void main(String[] args) 
 	{
-		try
+		Random rd = new Random();
+		int temp = 0, pista = 0;
+		double totalPistas = 0;
+		for (int i = 0; i < 10; i++) 
 		{
-			BufferedReader br = new BufferedReader (new InputStreamReader ( System.in));
-			int x = 0;
-			Funciones fn = new Funciones();
-			
-			System.out.println("En cualquier momento, ingrese '-1' para acabar el programa.");
-			while (true)
+			if (i == 0)
 			{
-				System.out.print("Ingrese el número de proceso a añadir: ");
-				x = Integer.parseInt(br.readLine());
-				if (x == -1)
-					break;
-				fn.add(x);
-			}	
-		} catch (Exception ex) {}
-		
+				pista = rd.nextInt(500) + 1;
+				System.out.println("\t\tPista inicial: " + pista);
+				temp = pista;
+				pista = rd.nextInt(500) + 1;
+				System.out.print("Pista siguiente: " + pista);
+				System.out.println("\tN. pistas recorridas: " + (Math.abs(temp - pista)));
+				totalPistas += Math.abs(temp - pista);
+			}
+			else
+			{
+				temp = pista;
+				pista = rd.nextInt(500) + 1;
+				System.out.print("Pista siguiente: " + pista);
+				System.out.println("\tN. pistas recorridas: " + (Math.abs(temp - pista)));
+				totalPistas += Math.abs(temp - pista);
+			}
+		}
+		System.out.println("\t\tTiempo medio de búsqueda: " + (totalPistas/10));
 	}
 	
 }
